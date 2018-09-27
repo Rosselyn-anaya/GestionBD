@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="consultorioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Enfermera">
+    <Key>
+      <PropertyRef Name="id_enfermera" />
+    </Key>
+    <Property Name="id_enfermera" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Edad" Type="int" Nullable="false" />
+    <Property Name="Area" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="id_medico" Type="int" />
+  </EntityType>
+  <EntityType Name="Medico">
+    <Key>
+      <PropertyRef Name="id_medico" />
+    </Key>
+    <Property Name="id_medico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Especialidad" Type="varchar" MaxLength="100" />
+    <Property Name="Edad" Type="int" />
+  </EntityType>
+  <EntityType Name="Paciente">
+    <Key>
+      <PropertyRef Name="id_Paciente" />
+    </Key>
+    <Property Name="id_Paciente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Edad" Type="int" />
+    <Property Name="id_medico" Type="int" />
+  </EntityType>
+  <Association Name="FK__Enfermera__id_me__4CA06362">
+    <End Role="Medico" Type="Self.Medico" Multiplicity="0..1" />
+    <End Role="Enfermera" Type="Self.Enfermera" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medico">
+        <PropertyRef Name="id_medico" />
+      </Principal>
+      <Dependent Role="Enfermera">
+        <PropertyRef Name="id_medico" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Paciente__id_med__3F466844">
+    <End Role="Medico" Type="Self.Medico" Multiplicity="0..1" />
+    <End Role="Paciente" Type="Self.Paciente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medico">
+        <PropertyRef Name="id_medico" />
+      </Principal>
+      <Dependent Role="Paciente">
+        <PropertyRef Name="id_medico" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="consultorioModelStoreContainer">
+    <EntitySet Name="Enfermera" EntityType="Self.Enfermera" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medico" EntityType="Self.Medico" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Paciente" EntityType="Self.Paciente" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Enfermera__id_me__4CA06362" Association="Self.FK__Enfermera__id_me__4CA06362">
+      <End Role="Medico" EntitySet="Medico" />
+      <End Role="Enfermera" EntitySet="Enfermera" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Paciente__id_med__3F466844" Association="Self.FK__Paciente__id_med__3F466844">
+      <End Role="Medico" EntitySet="Medico" />
+      <End Role="Paciente" EntitySet="Paciente" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
